@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Truck Service - Login & Signup</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" />
+  <style>
+    body {
+      background: linear-gradient(135deg, #1a1a1a 0%, #2c3e50 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      font-family: 'Segoe UI', sans-serif;
+    }
+    .container {
+      max-width: 500px;
+    }
+    .card {
+      border: none;
+      border-radius: 15px;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+      overflow: hidden;
+      transition: transform 0.3s ease, opacity 0.5s ease;
+    }
+    .card.hidden {
+      display: none;
+      opacity: 0;
+    }
+    .card.visible {
+      display: block;
+      opacity: 1;
+    }
+    .card:hover {
+      transform: translateY(-5px);
+    }
+    .card-header {
+      background: linear-gradient(90deg, #007bff, #00d4ff);
+      color: white;
+      border-radius: 15px 15px 0 0;
+      padding: 1.5rem;
+    }
+    .form-control {
+      border-radius: 10px;
+      background: #f8f9fa;
+      transition: box-shadow 0.3s ease;
+    }
+    .form-control:focus {
+      box-shadow: 0 0 10px rgba(0, 123, 255, 0.5);
+      border-color: #007bff;
+    }
+    .btn {
+      border-radius: 10px;
+      padding: 0.75rem;
+      font-weight: 600;
+      position: relative;
+      overflow: hidden;
+    }
+    .btn-loading::after {
+      content: '';
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      border: 3px solid #fff;
+      border-top: 3px solid transparent;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+    @keyframes spin {
+      0% { transform: translate(-50%, -50%) rotate(0deg); }
+      100% { transform: translate(-50%, -50%) rotate(360deg); }
+    }
+    .password-toggle {
+      cursor: pointer;
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+    .alert {
+      border-radius: 10px;
+      animation: fadeIn 0.5s ease;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    h1 {
+      font-weight: 700;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+    }
+    .switch-link {
+      cursor: pointer;
+      color: #007bff;
+      text-decoration: underline;
+    }
+    .switch-link:hover {
+      color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+  <div class="container py-5">
+    <h1 class="text-center mb-5 text-white">Truck Service Management</h1>
+
+    <!-- Login Form -->
+    <div class="card visible" id="loginCard">
+      <div class="card-header">
+        <h2 class="mb-0 text-center">Log In</h2>
+      </div>
+      <div class="card-body p-4">
+        <form id="loginForm" novalidate>
+          <div class="mb-3">
+            <input type="email" id="loginEmail" class="form-control" placeholder="Email Address" required />
+            <div class="invalid-feedback">Please enter a valid email address.</div>
+          </div>
+          <div class="mb-3 position-relative">
+            <input type="password" id="loginPassword" class="form-control" placeholder="Password" required />
+            <span class="password-toggle" onclick="togglePassword('loginPassword')">👁</span>
+            <div class="invalid-feedback">Please enter your password.</div>
+          </div>
+          <button type="submit" class="btn btn-primary w-100">Log In</button>
+        </form>
+        <div id="loginError" class="alert alert-danger mt-3 d-none" role="alert"></div>
+        <p class="text-center mt-3">
+          Don't have an account? <span class="switch-link" onclick="showSignup()">Sign Up</span>
+        </p>
+      </div>
+    </div>
+
+    <!-- Signup Form -->
+    <div class="card hidden" id="signupCard">
+      <div class="card-header">
+        <h2 class="mb-0 text-center">Sign Up</h2>
+      </div>
+      <div class="card-body p-4">
+        <form id="signupForm" novalidate>
+          <div class="mb-3">
+            <input type="text" id="name" class="form-control" placeholder="Full Name" required />
+            <div class="invalid-feedback">Please enter your full name.</div>
+          </div>
+          <div class="mb-3">
+            <input type="email" id="email" class="form-control" placeholder="Email Address" required />
+            <div class="invalid-feedback">Please enter a valid email address.</div>
+          </div>
+          <div class="mb-3 position-relative">
+            <input type="password" id="password" class="form-control" placeholder="Password" required minlength="6" />
+            <span class="password-toggle" onclick="togglePassword('password')">👁</span>
+            <div class="invalid-feedback">Password must be at least 6 characters.</div>
+          </div>
+          <div class="mb-3">
+            <input type="text" id="department" class="form-control" placeholder="Department" required />
+            <div class="invalid-feedback">Please enter your department.</div>
+          </div>
+          <div class="mb-3">
+            <input type="text" id="division" class="form-control" placeholder="Division" required />
+            <div class="invalid-feedback">Please enter your division.</div>
+          </div>
+          <button type="submit" class="btn btn-success w-100">Sign Up</button>
+        </form>
+        <div id="signupSuccess" class="alert alert-success mt-3 d-none" role="alert">
+          🎉 Signup successful! Please log in.
+        </div>
+        <div id="signupError" class="alert alert-danger mt-3 d-none" role="alert"></div>
+        <p class="text-center mt-3">
+          Already have an account? <span class="switch-link" onclick="showLogin()">Log In</span>
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <script type="module">
+    // Firebase imports
+    import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.14.0/firebase-app.js';
+    import { getFirestore, doc, setDoc, serverTimestamp } from 'https://www.gstatic.com/firebasejs/10.14.0/firebase-firestore.js';
+    import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'https://www.gstatic.com/firebasejs/10.14.0/firebase-auth.js';
+
+    // Firebase config
+    const firebaseConfig = {
+      apiKey: "AIzaSyDcEeWhWn7PK9GKS8A_EmZMc9ePS5TJYkQ",
+      authDomain: "truckservicemanager-663a1.firebaseapp.com",
+      projectId: "truckservicemanager-663a1",
+      storageBucket: "truckservicemanager-663a1.appspot.com",
+      messagingSenderId: "1059445448423",
+      appId: "1:1059445448423:web:387343748f82475e4acc42"
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+    const auth = getAuth(app);
+
+    // Form Switch Functions
+    window.showSignup = () => {
+      document.getElementById('loginCard').classList.replace('visible', 'hidden');
+      document.getElementById('signupCard').classList.replace('hidden', 'visible');
+    };
+
+    window.showLogin = () => {
+      document.getElementById('signupCard').classList.replace('visible', 'hidden');
+      document.getElementById('loginCard').classList.replace('hidden', 'visible');
+    };
+
+    // Utility Functions
+    const toggleButtonLoading = (button, isLoading) => {
+      button.disabled = isLoading;
+      button.classList.toggle('btn-loading', isLoading);
+      button.textContent = isLoading ? '' : button.dataset.originalText;
+    };
+
+    window.togglePassword = (id) => {
+      const input = document.getElementById(id);
+      const isPassword = input.type === 'password';
+      input.type = isPassword ? 'text' : 'password';
+      input.nextElementSibling.textContent = isPassword ? '🙈' : '👁️';
+    };
+
+    const showAlert = (elementId, message, isSuccess) => {
+      const alert = document.getElementById(elementId);
+      alert.textContent = message;
+      alert.classList.remove('d-none', 'alert-success', 'alert-danger');
+      alert.classList.add(isSuccess ? 'alert-success' : 'alert-danger');
+      setTimeout(() => alert.classList.add('d-none'), 5000);
+    };
+
+    const validateForm = (form) => {
+      form.classList.add('was-validated');
+      return form.checkValidity();
+    };
+
+    // Signup Handler
+    document.getElementById('signupForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const form = e.target;
+      const button = form.querySelector('button');
+      button.dataset.originalText = button.textContent;
+
+      if (!validateForm(form)) return;
+
+      toggleButtonLoading(button, true);
+
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value.trim();
+      const department = document.getElementById('department').value.trim();
+      const division = document.getElementById('division').value.trim();
+
+      try {
+        const userCred = await createUserWithEmailAndPassword(auth, email, password);
+        await setDoc(doc(db, 'users', userCred.user.uid), {
+          name,
+          email,
+          department,
+          division,
+          createdAt: serverTimestamp()
+        });
+        showAlert('signupSuccess', '🎉 Signup successful! Please log in.', true);
+        form.reset();
+        form.classList.remove('was-validated');
+        setTimeout(showLogin, 2000); // Switch to login after success
+      } catch (error) {
+        showAlert('signupError', `Signup failed: ${error.message}`, false);
+        console.error('Signup error:', error);
+      } finally {
+        toggleButtonLoading(button, false);
+      }
+    });
+
+    // Login Handler
+    document.getElementById('loginForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const form = e.target;
+      const button = form.querySelector('button');
+      button.dataset.originalText = button.textContent;
+
+      if (!validateForm(form)) return;
+
+      toggleButtonLoading(button, true);
+
+      const email = document.getElementById('loginEmail').value.trim();
+      const password = document.getElementById('loginPassword').value.trim();
+
+      try {
+        await signInWithEmailAndPassword(auth, email, password);
+        window.location.href = 'dashboard.html';
+      } catch (error) {
+        showAlert('loginError', '❌ Login failed. Please check your credentials.', false);
+        console.error('Login error:', error);
+      } finally {
+        toggleButtonLoading(button, false);
+      }
+    });
+  </script>
+</body>
+</html>
