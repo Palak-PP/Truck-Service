@@ -236,35 +236,40 @@
   <div class="modal fade fixed top-0 left-0 w-full h-full bg-black/50 z-50 hidden" id="addTruckModal" tabindex="-1" aria-labelledby="addTruckModalLabel" aria-hidden="true">
     <div class="modal-dialog max-w-md mx-auto mt-20">
       <div class="glass rounded-2xl p-6">
-        <div class="flex justify-between items-center mb-4">
+        <div class="modal-header flex justify-between items-center mb-4">
           <h5 class="text-xl font-semibold" id="addTruckModalLabel"><i class="fa-solid fa-truck-fast mr-2"></i> Add New Truck</h5>
           <button type="button" class="text-white hover:text-gray-300" data-bs-dismiss="modal" aria-label="Close">
             <i class="fa-solid fa-times"></i>
           </button>
         </div>
-        <form id="addTruckForm" novalidate class="space-y-4">
-          <div>
-            <label for="truckId" class="block text-sm font-medium">Truck ID</label>
-            <input type="text" id="truckId" class="w-full p-2 rounded-lg bg-white/90 text-gray-800 focus:ring-2 focus:ring-blue-500" placeholder="e.g., TRK001" required />
-            <div class="invalid-feedback text-red-400 text-sm mt-1 hidden">Please enter a unique Truck ID.</div>
-          </div>
-          <div>
-            <label for="model" class="block text-sm font-medium">Model</label>
-            <input type="text" id="model" class="w-full p-2 rounded-lg bg-white/90 text-gray-800 focus:ring-2 focus:ring-blue-500" placeholder="e.g., Volvo FH16" required />
-            <div class="invalid-feedback text-red-400 text-sm mt-1 hidden">Please enter the truck model.</div>
-          </div>
-          <div>
-            <label for="year" class="block text-sm font-medium">Year</label>
-            <input type="number" id="year" class="w-full p-2 rounded-lg bg-white/90 text-gray-800 focus:ring-2 focus:ring-blue-500" placeholder="e.g., 2020" min="1900" max="2100" required />
-            <div class="invalid-feedback text-red-400 text-sm mt-1 hidden">Please enter a valid year.</div>
-          </div>
-          <div>
-            <label for="licensePlate" class="block text-sm font-medium">License Plate</label>
-            <input type="text" id="licensePlate" class="w-full p-2 rounded-lg bg-white/90 text-gray-800 focus:ring-2 focus:ring-blue-500" placeholder="e.g., ABC123" required />
-            <div class="invalid-feedback text-red-400 text-sm mt-1 hidden">Please enter the license plate.</div>
-          </div>
-          <button type="submit" class="btn bg-blue-600 text-white w-full py-2 rounded-lg hover:bg-blue-700 transition-colors">Add Truck</button>
-        </form>
+        <div class="modal-body">
+          <form id="addTruckForm" novalidate class="space-y-4">
+            <div>
+              <label for="truckId" class="block text-sm font-medium">Truck ID</label>
+              <input type="text" id="truckId" class="w-full p-2 rounded-lg bg-white/90 text-gray-800 focus:ring-2 focus:ring-blue-500" placeholder="e.g., TRK001" required />
+              <div class="invalid-feedback text-red-400 text-sm mt-1 hidden">Please enter a unique Truck ID.</div>
+            </div>
+            <div>
+              <label for="model" class="block text-sm font-medium">Model</label>
+              <input type="text" id="model" class="w-full p-2 rounded-lg bg-white/90 text-gray-800 focus:ring-2 focus:ring-blue-500" placeholder="e.g., Volvo FH16" required />
+              <div class="invalid-feedback text-red-400 text-sm mt-1 hidden">Please enter the truck model.</div>
+            </div>
+            <div>
+              <label for="year" class="block text-sm font-medium">Year</label>
+              <input type="number" id="year" class="w-full p-2 rounded-lg bg-white/90 text-gray-800 focus:ring-2 focus:ring-blue-500" placeholder="e.g., 2020" min="1900" max="2100" required />
+              <div class="invalid-feedback text-red-400 text-sm mt-1 hidden">Please enter a valid year.</div>
+            </div>
+            <div>
+              <label for="licensePlate" class="block text-sm font-medium">License Plate</label>
+              <input type="text" id="licensePlate" class="w-full p-2 rounded-lg bg-white/90 text-gray-800 focus:ring-2 focus:ring-blue-500" placeholder="e.g., ABC123" required />
+              <div class="invalid-feedback text-red-400 text-sm mt-1 hidden">Please enter the license plate.</div>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer flex justify-end space-x-2 mt-4">
+          <button type="button" class="btn bg-gray-500 text-white px-4 py-2 rounded-lg hover:bg-gray-600 transition-colors" data-bs-dismiss="modal">Back</button>
+          <button type="submit" form="addTruckForm" class="btn bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors">Add Truck</button>
+        </div>
         <div id="addTruckError" class="alert bg-red-500/80 text-white p-4 rounded-lg mt-4 hidden fade-in"></div>
       </div>
     </div>
@@ -313,49 +318,48 @@
   <div class="modal fade fixed top-0 left-0 w-full h-full bg-black/50 z-50 hidden" id="addServiceModal" tabindex="-1" aria-labelledby="addServiceModalLabel" aria-hidden="true">
     <div class="modal-dialog max-w-md mx-auto mt-20">
       <div class="glass rounded-2xl p-6">
-        <div class="flex justify-between items-center mb-4">
+        <div class="modal-header flex justify-between items-center mb-4">
           <h5 class="text-xl font-semibold" id="addServiceModalLabel"><i class="fa-solid fa-wrench mr-2"></i> Add New Service</h5>
           <button type="button" class="text-white hover:text-gray-300" data-bs-dismiss="modal" aria-label="Close">
             <i class="fa-solid fa-times"></i>
           </button>
         </div>
-        <form id="addServiceForm" novalidate class="space-y-4">
-          <div>
-            <label for="serviceTruckId" class="block text-sm font-medium">Truck</label>
-            <select id="serviceTruckId" class="w-full p-2 rounded-lg bg-white/90 text-gray-800 focus:ring-2 focus:ring-blue-500" required>
-              <option value="">Select a truck</option>
-            </select>
-            <div class="invalid-feedback text-red-400 text-sm mt-1 hidden">Please select a truck.</div>
-          </div>
-          <div>
-            <label for="workType" class="block text-sm font-medium">Work Type</label>
-            <select id="workType" class="w-full p-2 rounded-lg bg-white/90 text-gray-800 focus:ring-2 focus:ring-blue-500" required>
-              <option value="">Select work type</option>
-              <option value="Engine Repair">Engine Repair</option>
-              <option value="Tire Change">Tire Change</option>
-              <option value="Oil Change">Oil Change</option>
-              <option value="Brake Repair">Brake Repair</option>
-            </select>
-            <div class="invalid-feedback text-red-400 text-sm mt-1 hidden">Please select a work type.</div>
-          </div>
-          <div>
-            <label for="mechanic" class="block text-sm font-medium">Mechanic</label>
-            <input type="text" id="mechanic" class="w-full p-2 rounded-lg bg-white/90 text-gray-800 focus:ring-2 focus:ring-blue-500" placeholder="e.g., John Doe" required />
-            <div class="invalid-feedback text-red-400 text-sm mt-1 hidden">Please enter the mechanic's name.</div>
-          </div>
-          <div>
-            <label for="serviceCost" class="block text-sm font-medium">Cost ($)</label>
-            <input type="number" id="serviceCost" class="w-full p-2 rounded-lg bg-white/90 text-gray-800 focus:ring-2 focus:ring-blue-500" placeholder="e.g., 500" min="0" step="0.01" required />
-            <div class="invalid-feedback text-red-400 text-sm mt-1 hidden">Please enter a valid cost (e.g., 0 or greater).</div>
-          </div>
-          <div>
-            <label for="serviceParts" class="block text-sm font-medium">Parts Used (Optional)</label>
-            <select id="serviceParts" class="w-full p-2 rounded-lg bg-white/90 text-gray-800 focus:ring-2 focus:ring-blue-500" multiple>
-              <option value="">Select parts</option>
-            </select>
-          </div>
-          <button type="submit" class="btn bg-blue-600 text-white w-full py-2 rounded-lg hover:bg-blue-700 transition-colors">Add Service</button>
-        </form>
+        <div class="modal-body">
+          <form id="addServiceForm" novalidate class="space-y-4">
+            <div>
+              <label for="serviceTruckId" class="block text-sm font-medium">Truck</label>
+              <select id="serviceTruckId" class="w-full p-2 rounded-lg bg-white/90 text-gray-800 focus:ring-2 focus:ring-blue-500" required>
+                <option value="">Loading trucks...</option>
+              </select>
+              <div class="invalid-feedback text-red-400 text-sm mt-1 hidden">Please select a truck.</div>
+            </div>
+            <div>
+              <label for="workType" class="block text-sm font-medium">Work Type</label>
+              <input type="text" id="workType" class="w-full p-2 rounded-lg bg-white/90 text-gray-800 focus:ring-2 focus:ring-blue-500" placeholder="e.g., Engine Overhaul" required />
+              <div class="invalid-feedback text-red-400 text-sm mt-1 hidden">Please enter a work type.</div>
+            </div>
+            <div>
+              <label for="mechanic" class="block text-sm font-medium">Mechanic</label>
+              <input type="text" id="mechanic" class="w-full p-2 rounded-lg bg-white/90 text-gray-800 focus:ring-2 focus:ring-blue-500" placeholder="e.g., John Doe" required />
+              <div class="invalid-feedback text-red-400 text-sm mt-1 hidden">Please enter the mechanic's name.</div>
+            </div>
+            <div>
+              <label for="serviceCost" class="block text-sm font-medium">Cost ($)</label>
+              <input type="number" id="serviceCost" class="w-full p-2 rounded-lg bg-white/90 text-gray-800 focus:ring-2 focus:ring-blue-500" placeholder="e.g., 500" min="0" step="0.01" required />
+              <div class="invalid-feedback text-red-400 text-sm mt-1 hidden">Please enter a valid cost (0 or greater).</div>
+            </div>
+            <div>
+              <label for="serviceParts" class="block text-sm font-medium">Part Used (Optional)</label>
+              <select id="serviceParts" class="w-full p-2 rounded-lg bg-white/90 text-gray-800 focus:ring-2 focus:ring-blue-500">
+                <option value="">No part used</option>
+              </select>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer flex justify-end space-x-2 mt-4">
+          <button type="button" class="btn bg-gray-500 text-white px-4 py-2 rounded-lg hover:bg-gray-600 transition-colors" data-bs-dismiss="modal">Back</button>
+          <button type="submit" form="addServiceForm" class="btn bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors">Add Service</button>
+        </div>
         <div id="addServiceError" class="alert bg-red-500/80 text-white p-4 rounded-lg mt-4 hidden fade-in"></div>
       </div>
     </div>
@@ -394,35 +398,40 @@
   <div class="modal fade fixed top-0 left-0 w-full h-full bg-black/50 z-50 hidden" id="addPartModal" tabindex="-1" aria-labelledby="addPartModalLabel" aria-hidden="true">
     <div class="modal-dialog max-w-md mx-auto mt-20">
       <div class="glass rounded-2xl p-6">
-        <div class="flex justify-between items-center mb-4">
+        <div class="modal-header flex justify-between items-center mb-4">
           <h5 class="text-xl font-semibold" id="addPartModalLabel"><i class="fa-solid fa-boxes-stacked mr-2"></i> Add New Part</h5>
           <button type="button" class="text-white hover:text-gray-300" data-bs-dismiss="modal" aria-label="Close">
             <i class="fa-solid fa-times"></i>
           </button>
         </div>
-        <form id="addPartForm" novalidate class="space-y-4">
-          <div>
-            <label for="partId" class="block text-sm font-medium">Part ID</label>
-            <input type="text" id="partId" class="w-full p-2 rounded-lg bg-white/90 text-gray-800 focus:ring-2 focus:ring-blue-500" placeholder="e.g., PART001" required />
-            <div class="invalid-feedback text-red-400 text-sm mt-1 hidden">Please enter a unique Part ID.</div>
-          </div>
-          <div>
-            <label for="partName" class="block text-sm font-medium">Name</label>
-            <input type="text" id="partName" class="w-full p-2 rounded-lg bg-white/90 text-gray-800 focus:ring-2 focus:ring-blue-500" placeholder="e.g., Oil Filter" required />
-            <div class="invalid-feedback text-red-400 text-sm mt-1 hidden">Please enter the part name.</div>
-          </div>
-          <div>
-            <label for="partQuantity" class="block text-sm font-medium">Quantity</label>
-            <input type="number" id="partQuantity" class="w-full p-2 rounded-lg bg-white/90 text-gray-800 focus:ring-2 focus:ring-blue-500" placeholder="e.g., 10" min="0" required />
-            <div class="invalid-feedback text-red-400 text-sm mt-1 hidden">Please enter a valid quantity.</div>
-          </div>
-          <div>
-            <label for="partPrice" class="block text-sm font-medium">Price ($)</label>
-            <input type="number" id="partPrice" class="w-full p-2 rounded-lg bg-white/90 text-gray-800 focus:ring-2 focus:ring-blue-500" placeholder="e.g., 25.99" min="0" step="0.01" required />
-            <div class="invalid-feedback text-red-400 text-sm mt-1 hidden">Please enter a valid price.</div>
-          </div>
-          <button type="submit" class="btn bg-blue-600 text-white w-full py-2 rounded-lg hover:bg-blue-700 transition-colors">Add Part</button>
-        </form>
+        <div class="modal-body">
+          <form id="addPartForm" novalidate class="space-y-4">
+            <div>
+              <label for="partId" class="block text-sm font-medium">Part ID</label>
+              <input type="text" id="partId" class="w-full p-2 rounded-lg bg-white/90 text-gray-800 focus:ring-2 focus:ring-blue-500" placeholder="e.g., PART001" required />
+              <div class="invalid-feedback text-red-400 text-sm mt-1 hidden">Please enter a unique Part ID.</div>
+            </div>
+            <div>
+              <label for="partName" class="block text-sm font-medium">Name</label>
+              <input type="text" id="partName" class="w-full p-2 rounded-lg bg-white/90 text-gray-800 focus:ring-2 focus:ring-blue-500" placeholder="e.g., Oil Filter" required />
+              <div class="invalid-feedback text-red-400 text-sm mt-1 hidden">Please enter the part name.</div>
+            </div>
+            <div>
+              <label for="partQuantity" class="block text-sm font-medium">Quantity</label>
+              <input type="number" id="partQuantity" class="w-full p-2 rounded-lg bg-white/90 text-gray-800 focus:ring-2 focus:ring-blue-500" placeholder="e.g., 10" min="0" required />
+              <div class="invalid-feedback text-red-400 text-sm mt-1 hidden">Please enter a valid quantity.</div>
+            </div>
+            <div>
+              <label for="partPrice" class="block text-sm font-medium">Price ($)</label>
+              <input type="number" id="partPrice" class="w-full p-2 rounded-lg bg-white/90 text-gray-800 focus:ring-2 focus:ring-blue-500" placeholder="e.g., 25.99" min="0" step="0.01" required />
+              <div class="invalid-feedback text-red-400 text-sm mt-1 hidden">Please enter a valid price.</div>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer flex justify-end space-x-2 mt-4">
+          <button type="button" class="btn bg-gray-500 text-white px-4 py-2 rounded-lg hover:bg-gray-600 transition-colors" data-bs-dismiss="modal">Back</button>
+          <button type="submit" form="addPartForm" class="btn bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors">Add Part</button>
+        </div>
         <div id="addPartError" class="alert bg-red-500/80 text-white p-4 rounded-lg mt-4 hidden fade-in"></div>
       </div>
     </div>
@@ -539,11 +548,13 @@
       else if (sectionId === 'reports') loadReport();
     };
 
-    // Modal Handling (Custom for Tailwind)
+    // Modal Handling
     const modals = document.querySelectorAll('.modal');
     modals.forEach(modal => {
-      modal.querySelector('[data-bs-dismiss="modal"]').addEventListener('click', () => {
-        modal.classList.add('hidden');
+      modal.querySelectorAll('[data-bs-dismiss="modal"]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          modal.classList.add('hidden');
+        });
       });
     });
     document.querySelectorAll('[data-bs-toggle="modal"]').forEach(btn => {
@@ -601,12 +612,13 @@
       if (!currentUser) return;
       try {
         const truckTableBody = document.getElementById('truckTableBody');
-        truckTableBody.innerHTML = '';
+        truckTableBody.innerHTML = '<tr><td colspan="5" class="text-center p-4">Loading trucks...</td></tr>';
         const q = query(collection(db, `users/${currentUser.uid}/trucks`), orderBy('truckId'));
         const querySnapshot = await getDocs(q);
         if (querySnapshot.empty) {
           truckTableBody.innerHTML = '<tr><td colspan="5" class="text-center p-4">No trucks found. Add a truck to get started!</td></tr>';
         } else {
+          truckTableBody.innerHTML = '';
           querySnapshot.forEach((doc) => {
             const truck = doc.data();
             const row = `
@@ -625,6 +637,7 @@
           });
         }
       } catch (error) {
+        console.error('Error loading trucks:', error);
         showAlert('truckError', 'Failed to load trucks: ' + error.message);
       }
     };
@@ -658,6 +671,7 @@
         showAlert('truckError', 'Truck added successfully!', true);
         loadTrucks();
       } catch (error) {
+        console.error('Error adding truck:', error);
         showAlert('addTruckError', 'Failed to add truck: ' + error.message);
       } finally {
         toggleButtonLoading(button, false);
@@ -703,6 +717,7 @@
         showAlert('truckError', 'Truck updated successfully!', true);
         loadTrucks();
       } catch (error) {
+        console.error('Error updating truck:', error);
         showAlert('editTruckError', 'Failed to update truck: ' + error.message);
       } finally {
         toggleButtonLoading(button, false);
@@ -711,29 +726,38 @@
 
     // --- Service Management ---
     const loadTrucksForService = async () => {
+      const truckSelect = document.getElementById('serviceTruckId');
+      truckSelect.innerHTML = '<option value="">Loading trucks...</option>';
       try {
-        const truckSelect = document.getElementById('serviceTruckId');
-        truckSelect.innerHTML = '<option value="">Select a truck</option>';
+        if (!currentUser) {
+          throw new Error('User not authenticated');
+        }
         const q = query(collection(db, `users/${currentUser.uid}/trucks`), orderBy('truckId'));
         const querySnapshot = await getDocs(q);
+        console.log('Trucks querySnapshot:', querySnapshot.size, 'documents found');
+        truckSelect.innerHTML = '<option value="">Select a truck</option>';
         if (querySnapshot.empty) {
-          truckSelect.innerHTML += '<option value="" disabled>No trucks available</option>';
+          truckSelect.innerHTML = '<option value="" disabled>No trucks available</option>';
+          showAlert('addServiceError', 'No trucks found. Please add a truck in Truck Management.', false);
         } else {
           querySnapshot.forEach((doc) => {
             const truck = doc.data();
+            console.log('Truck loaded:', truck.truckId, doc.id);
             const option = `<option value="${doc.id}">${truck.truckId} - ${truck.model}</option>`;
             truckSelect.insertAdjacentHTML('beforeend', option);
           });
         }
       } catch (error) {
-        showAlert('addServiceError', 'Failed to load trucks: ' + error.message);
+        console.error('Error loading trucks for service:', error);
+        truckSelect.innerHTML = '<option value="" disabled>Failed to load trucks</option>';
+        showAlert('addServiceError', `Failed to load trucks: ${error.message}. Please try again or check your connection.`, false);
       }
     };
 
     const loadPartsForService = async () => {
       try {
         const partsSelect = document.getElementById('serviceParts');
-        partsSelect.innerHTML = '<option value="">Select parts</option>';
+        partsSelect.innerHTML = '<option value="">No part used</option>';
         const q = query(collection(db, `users/${currentUser.uid}/parts`), orderBy('partId'));
         const querySnapshot = await getDocs(q);
         querySnapshot.forEach((doc) => {
@@ -744,6 +768,7 @@
           }
         });
       } catch (error) {
+        console.error('Error loading parts for service:', error);
         showAlert('addServiceError', 'Failed to load parts: ' + error.message);
       }
     };
@@ -752,7 +777,7 @@
       if (!currentUser) return;
       try {
         const serviceTableBody = document.getElementById('serviceTableBody');
-        serviceTableBody.innerHTML = '';
+        serviceTableBody.innerHTML = '<tr><td colspan="5" class="text-center p-4">Loading services...</td></tr>';
         const q = query(collection(db, `users/${currentUser.uid}/services`), orderBy('createdAt', 'desc'));
         const querySnapshot = await getDocs(q);
         if (querySnapshot.empty) {
@@ -765,6 +790,7 @@
             trucksMap[truckDoc.id] = truckDoc.data().truckId;
           });
 
+          serviceTableBody.innerHTML = '';
           for (const serviceDoc of querySnapshot.docs) {
             const service = serviceDoc.data();
             const truckId = trucksMap[service.truckId] || 'Unknown';
@@ -782,8 +808,8 @@
           }
         }
       } catch (error) {
-        console.error('Error in loadServices:', error);
-        showAlert('serviceError', 'Failed to load services. Please try again later.');
+        console.error('Error loading services:', error);
+        showAlert('serviceError', 'Failed to load services: ' + error.message);
       }
     };
 
@@ -798,12 +824,10 @@
       toggleButtonLoading(button, true);
 
       const truckId = document.getElementById('serviceTruckId').value;
-      const workType = document.getElementById('workType').value;
+      const workType = document.getElementById('workType').value.trim();
       const mechanic = document.getElementById('mechanic').value.trim();
       const costInput = document.getElementById('serviceCost').value;
-      const partsUsed = Array.from(document.getElementById('serviceParts').selectedOptions)
-        .map(opt => opt.value)
-        .filter(id => id);
+      const partId = document.getElementById('serviceParts').value;
 
       if (!truckId) {
         showAlert('addServiceError', 'Please select a truck.');
@@ -811,7 +835,7 @@
         return;
       }
       if (!workType) {
-        showAlert('addServiceError', 'Please select a work type.');
+        showAlert('addServiceError', 'Please enter a work type.');
         toggleButtonLoading(button, false);
         return;
       }
@@ -828,30 +852,35 @@
       }
 
       try {
-        await addDoc(collection(db, `users/${currentUser.uid}/services`), {
+        // Prepare service data
+        const serviceData = {
           truckId,
           workType,
           mechanic,
           cost,
-          partsUsed,
           createdAt: serverTimestamp(),
           createdBy: currentUser.uid
-        });
+        };
+        if (partId) {
+          serviceData.partUsed = partId;
+        }
 
-        for (const partId of partsUsed) {
-          if (partId) {
-            const partRef = doc(db, `users/${currentUser.uid}/parts`, partId);
-            const partDoc = await getDoc(partRef);
-            if (partDoc.exists()) {
-              const currentQuantity = partDoc.data().quantity;
-              if (currentQuantity > 0) {
-                await updateDoc(partRef, { quantity: currentQuantity - 1 });
-              } else {
-                showAlert('addServiceError', `Part ${partDoc.data().partId} is out of stock.`, true);
-              }
+        // Add service
+        await addDoc(collection(db, `users/${currentUser.uid}/services`), serviceData);
+
+        // Update inventory if a part was selected
+        if (partId) {
+          const partRef = doc(db, `users/${currentUser.uid}/parts`, partId);
+          const partDoc = await getDoc(partRef);
+          if (partDoc.exists()) {
+            const currentQuantity = partDoc.data().quantity;
+            if (currentQuantity > 0) {
+              await updateDoc(partRef, { quantity: currentQuantity - 1 });
             } else {
-              showAlert('addServiceError', `Part with ID ${partId} not found.`, true);
+              showAlert('addServiceError', `Part ${partDoc.data().partId} is out of stock. Service added without part update.`, true);
             }
+          } else {
+            showAlert('addServiceError', `Part not found. Service added without part update.`, true);
           }
         }
 
@@ -861,6 +890,7 @@
         loadServices();
         loadParts();
       } catch (error) {
+        console.error('Error adding service:', error);
         showAlert('addServiceError', 'Failed to add service: ' + error.message);
       } finally {
         toggleButtonLoading(button, false);
@@ -870,7 +900,7 @@
     window.viewServiceHistory = async (truckId) => {
       try {
         const historyTableBody = document.getElementById('serviceHistoryTableBody');
-        historyTableBody.innerHTML = '';
+        historyTableBody.innerHTML = '<tr><td colspan="5" class="text-center p-4">Loading history...</td></tr>';
         const q = query(
           collection(db, `users/${currentUser.uid}/services`),
           where('truckId', '==', truckId),
@@ -880,15 +910,12 @@
         if (querySnapshot.empty) {
           historyTableBody.innerHTML = '<tr><td colspan="5" class="text-center p-4">No service history found.</td></tr>';
         } else {
+          historyTableBody.innerHTML = '';
           for (const doc of querySnapshot.docs) {
             const service = doc.data();
-            const parts = service.partsUsed && service.partsUsed.length > 0
-              ? await Promise.all(service.partsUsed.map(async (partId) => {
-                  const partRef = doc(db, `users/${currentUser.uid}/parts`, partId);
-                  const partDoc = await getDoc(partRef);
-                  return partDoc.exists() ? partDoc.data().name : 'Unknown';
-                }))
-              : ['None'];
+            const partName = service.partUsed
+              ? (await getDoc(doc(db, `users/${currentUser.uid}/parts`, service.partUsed))).data()?.name || 'Unknown'
+              : 'None';
             const createdAt = service.createdAt instanceof Timestamp ? service.createdAt.toDate() : new Date();
             const row = `
               <tr class="hover:bg-gray-100 transition-colors">
@@ -896,7 +923,7 @@
                 <td class="p-4">${service.mechanic}</td>
                 <td class="p-4">$${service.cost.toFixed(2)}</td>
                 <td class="p-4">${createdAt.toLocaleDateString()}</td>
-                <td class="p-4">${parts.join(', ')}</td>
+                <td class="p-4">${partName}</td>
               </tr>
             `;
             historyTableBody.insertAdjacentHTML('beforeend', row);
@@ -904,6 +931,7 @@
         }
         document.getElementById('serviceHistoryModal').classList.remove('hidden');
       } catch (error) {
+        console.error('Error loading service history:', error);
         showAlert('serviceHistoryError', 'Failed to load service history: ' + error.message);
       }
     };
@@ -913,12 +941,13 @@
       if (!currentUser) return;
       try {
         const partTableBody = document.getElementById('partTableBody');
-        partTableBody.innerHTML = '';
+        partTableBody.innerHTML = '<tr><td colspan="5" class="text-center p-4">Loading parts...</td></tr>';
         const q = query(collection(db, `users/${currentUser.uid}/parts`), orderBy('partId'));
         const querySnapshot = await getDocs(q);
         if (querySnapshot.empty) {
           partTableBody.innerHTML = '<tr><td colspan="5" class="text-center p-4">No parts found. Add a part to get started!</td></tr>';
         } else {
+          partTableBody.innerHTML = '';
           querySnapshot.forEach((doc) => {
             const part = doc.data();
             const isLowStock = part.quantity < 5;
@@ -937,6 +966,7 @@
           });
         }
       } catch (error) {
+        console.error('Error loading parts:', error);
         showAlert('partError', 'Failed to load parts: ' + error.message);
       }
     };
@@ -970,6 +1000,7 @@
         showAlert('partError', 'Part added successfully!', true);
         loadParts();
       } catch (error) {
+        console.error('Error adding part:', error);
         showAlert('addPartError', 'Failed to add part: ' + error.message);
       } finally {
         toggleButtonLoading(button, false);
@@ -1015,6 +1046,7 @@
         showAlert('partError', 'Part updated successfully!', true);
         loadParts();
       } catch (error) {
+        console.error('Error updating part:', error);
         showAlert('editPartError', 'Failed to update part: ' + error.message);
       } finally {
         toggleButtonLoading(button, false);
@@ -1026,7 +1058,7 @@
       const filter = document.getElementById('reportFilter').value;
       const reportTableHead = document.getElementById('reportTableHead');
       const reportTableBody = document.getElementById('reportTableBody');
-      reportTableBody.innerHTML = '';
+      reportTableBody.innerHTML = '<tr><td colspan="5" class="text-center p-4">Loading report...</td></tr>';
       reportTableHead.innerHTML = '';
 
       try {
@@ -1065,6 +1097,7 @@
           if (querySnapshot.empty) {
             reportTableBody.innerHTML = `<tr><td colspan="5" class="text-center p-4">No ${filter} services found.</td></tr>`;
           } else {
+            reportTableBody.innerHTML = '';
             for (const serviceDoc of querySnapshot.docs) {
               const service = serviceDoc.data();
               const truckId = trucksMap[service.truckId] || 'Unknown';
@@ -1102,26 +1135,24 @@
           const partsUsage = {};
           for (const serviceDoc of servicesSnapshot.docs) {
             const service = serviceDoc.data();
-            if (service.partsUsed && service.partsUsed.length > 0) {
-              for (const partId of service.partsUsed) {
-                if (!partsUsage[partId]) {
-                  partsUsage[partId] = {
-                    partId: partsMap[partId]?.partId || 'Unknown',
-                    name: partsMap[partId]?.name || 'Unknown',
-                    count: 0,
-                    services: []
-                  };
-                }
-                if (partsUsage[partId]) {
-                  partsUsage[partId].count += 1;
-                  partsUsage[partId].services.push(service.workType);
-                }
+            const partId = service.partUsed;
+            if (partId) {
+              if (!partsUsage[partId]) {
+                partsUsage[partId] = {
+                  partId: partsMap[partId]?.partId || 'Unknown',
+                  name: partsMap[partId]?.name || 'Unknown',
+                  count: 0,
+                  services: []
+                };
               }
+              partsUsage[partId].count += 1;
+              partsUsage[partId].services.push(service.workType);
             }
           }
           if (Object.keys(partsUsage).length === 0) {
             reportTableBody.innerHTML = '<tr><td colspan="4" class="text-center p-4">No parts used in services.</td></tr>';
           } else {
+            reportTableBody.innerHTML = '';
             for (const partId in partsUsage) {
               const part = partsUsage[partId];
               const row = `
@@ -1161,6 +1192,7 @@
           if (Object.keys(trucks).length === 0) {
             reportTableBody.innerHTML = '<tr><td colspan="3" class="text-center p-4">No costs recorded.</td></tr>';
           } else {
+            reportTableBody.innerHTML = '';
             for (const truckId in trucks) {
               const truck = trucks[truckId];
               const row = `
@@ -1175,18 +1207,26 @@
           }
         }
       } catch (error) {
-        console.error('Error in loadReport:', error);
-        showAlert('reportError', 'Failed to load report. Please try again later.');
+        console.error('Error loading report:', error);
+        showAlert('reportError', 'Failed to load report: ' + error.message);
       }
     };
 
     document.getElementById('reportFilter').addEventListener('change', loadReport);
 
-    // Initialize
-    document.getElementById('addServiceModal').addEventListener('shown.bs.modal', () => {
+    // Initialize Add Service Modal
+    const addServiceModal = document.getElementById('addServiceModal');
+    addServiceModal.addEventListener('show', () => {
       loadTrucksForService();
       loadPartsForService();
     });
+
+    // Trigger show event when opening modal
+    document.querySelector('[data-bs-target="#addServiceModal"]').addEventListener('click', () => {
+      addServiceModal.classList.remove('hidden');
+      addServiceModal.dispatchEvent(new Event('show'));
+    });
+
     // Set initial active link
     document.querySelector(`a[onclick="showSection('trucks')"]`).classList.add('bg-blue-600', 'text-white');
   </script>
