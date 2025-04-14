@@ -3,59 +3,45 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Truck Service - Login & Signup</title>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" />
+  <title>SS Transport Service - Manager</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Font Awesome CDN -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWixL1yR83T8jDq3W9YkL6r5z6Yb6I8y1g7z5z8z8z8z8z8z8z8z8z8z8z8z8z8z8z8z8z==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <style>
+    /* Glassmorphism */
+    .glass {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
+    }
+    /* Gradient Background */
     body {
-      background: linear-gradient(135deg, #1a1a1a 0%, #2c3e50 100%);
+      background: linear-gradient(135deg, #1e3a8a 0%, #075985 100%);
       min-height: 100vh;
-      display: flex;
-      align-items: center;
-      font-family: 'Segoe UI', sans-serif;
+      font-family: 'Inter', sans-serif;
+      color: #f3f4f6;
     }
-    .container {
-      max-width: 500px;
+    /* Animations */
+    .fade-in {
+      animation: fadeIn 0.5s ease;
     }
-    .card {
-      border: none;
-      border-radius: 15px;
-      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
-      overflow: hidden;
-      transition: transform 0.3s ease, opacity 0.5s ease;
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
     }
-    .card.hidden {
-      display: none;
-      opacity: 0;
+    .scale-hover:hover {
+      transform: scale(1.05);
+      transition: transform 0.2s ease;
     }
-    .card.visible {
-      display: block;
-      opacity: 1;
-    }
-    .card:hover {
-      transform: translateY(-5px);
-    }
-    .card-header {
-      background: linear-gradient(90deg, #007bff, #00d4ff);
-      color: white;
-      border-radius: 15px 15px 0 0;
-      padding: 1.5rem;
-    }
-    .form-control {
-      border-radius: 10px;
-      background: #f8f9fa;
-      transition: box-shadow 0.3s ease;
-    }
+    /* Input Focus */
     .form-control:focus {
-      box-shadow: 0 0 10px rgba(0, 123, 255, 0.5);
-      border-color: #007bff;
+      outline: none;
+      box-shadow: 0 0 10px rgba(59, 130, 246, 0.5);
+      border-color: #3b82f6;
     }
-    .btn {
-      border-radius: 10px;
-      padding: 0.75rem;
-      font-weight: 600;
-      position: relative;
-      overflow: hidden;
-    }
+    /* Button Loading */
     .btn-loading::after {
       content: '';
       position: absolute;
@@ -73,102 +59,219 @@
       0% { transform: translate(-50%, -50%) rotate(0deg); }
       100% { transform: translate(-50%, -50%) rotate(360deg); }
     }
+    /* Password Toggle */
     .password-toggle {
       cursor: pointer;
       position: absolute;
-      right: 10px;
+      right: 12px;
       top: 50%;
       transform: translateY(-50%);
+      color: #9ca3af;
     }
-    .alert {
-      border-radius: 10px;
-      animation: fadeIn 0.5s ease;
+    .password-toggle:hover {
+      color: #f3f4f6;
     }
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
     }
-    h1 {
-      font-weight: 700;
-      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+    ::-webkit-scrollbar-track {
+      background: rgba(255, 255, 255, 0.1);
     }
-    .switch-link {
-      cursor: pointer;
-      color: #007bff;
-      text-decoration: underline;
-    }
-    .switch-link:hover {
-      color: #0056b3;
+    ::-webkit-scrollbar-thumb {
+      background: #f97316;
+      border-radius: 4px;
     }
   </style>
 </head>
-<body>
-  <div class="container py-5">
-    <h1 class="text-center mb-5 text-white">Truck Service Management</h1>
+<body class="flex items-center justify-center py-8">
+  <div class="container max-w-md px-4">
+    <!-- Branding -->
+    <div class="text-center mb-8 fade-in">
+      <h1 class="text-4xl md:text-5xl font-extrabold text-white">
+        SS Transport Service
+        <span class="block text-lg md:text-xl font-semibold mt-2">Manager</span>
+      </h1>
+    </div>
 
     <!-- Login Form -->
-    <div class="card visible" id="loginCard">
-      <div class="card-header">
-        <h2 class="mb-0 text-center">Log In</h2>
-      </div>
-      <div class="card-body p-4">
-        <form id="loginForm" novalidate>
-          <div class="mb-3">
-            <input type="email" id="loginEmail" class="form-control" placeholder="Email Address" required />
-            <div class="invalid-feedback">Please enter a valid email address.</div>
+    <div class="card glass rounded-2xl p-6 visible scale-hover" id="loginCard">
+      <h2 class="text-2xl font-semibold text-center text-white mb-6">
+        Log In
+      </h2>
+      <form id="loginForm" novalidate class="space-y-4">
+        <div class="relative">
+          <div class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">
+            <i class="fa-solid fa-envelope"></i>
           </div>
-          <div class="mb-3 position-relative">
-            <input type="password" id="loginPassword" class="form-control" placeholder="Password" required />
-            <span class="password-toggle" onclick="togglePassword('loginPassword')">👁</span>
-            <div class="invalid-feedback">Please enter your password.</div>
+          <input
+            type="email"
+            id="loginEmail"
+            class="form-control w-full pl-10 pr-4 py-2 rounded-lg bg-white/90 text-gray-800 focus:ring-2 focus:ring-blue-500"
+            placeholder="Email Address"
+            required
+          />
+          <div class="invalid-feedback text-red-400 text-sm mt-1 hidden">
+            Please enter a valid email address.
           </div>
-          <button type="submit" class="btn btn-primary w-100">Log In</button>
-        </form>
-        <div id="loginError" class="alert alert-danger mt-3 d-none" role="alert"></div>
-        <p class="text-center mt-3">
-          Don't have an account? <span class="switch-link" onclick="showSignup()">Sign Up</span>
-        </p>
-      </div>
+        </div>
+        <div class="relative">
+          <div class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">
+            <i class="fa-solid fa-lock"></i>
+          </div>
+          <input
+            type="password"
+            id="loginPassword"
+            class="form-control w-full pl-10 pr-10 py-2 rounded-lg bg-white/90 text-gray-800 focus:ring-2 focus:ring-blue-500"
+            placeholder="Password"
+            required
+          />
+          <span
+            class="password-toggle"
+            onclick="togglePassword('loginPassword')"
+          >
+            <i class="fa-solid fa-eye"></i>
+          </span>
+          <div class="invalid-feedback text-red-400 text-sm mt-1 hidden">
+            Please enter your password.
+          </div>
+        </div>
+        <button
+          type="submit"
+          class="btn bg-gradient-to-r from-blue-600 to-blue-700 text-white w-full py-3 rounded-lg hover:from-blue-700 hover:to-blue-800 transition-all font-semibold"
+        >
+          Log In
+        </button>
+      </form>
+      <div
+        id="loginError"
+        class="alert bg-red-500/80 text-white p-4 rounded-lg mt-4 hidden fade-in"
+      ></div>
+      <p class="text-center mt-4 text-gray-300">
+        Don't have an account?
+        <span
+          class="cursor-pointer text-blue-400 hover:text-blue-500 underline"
+          onclick="showSignup()"
+        >
+          Sign Up
+        </span>
+      </p>
     </div>
 
     <!-- Signup Form -->
-    <div class="card hidden" id="signupCard">
-      <div class="card-header">
-        <h2 class="mb-0 text-center">Sign Up</h2>
-      </div>
-      <div class="card-body p-4">
-        <form id="signupForm" novalidate>
-          <div class="mb-3">
-            <input type="text" id="name" class="form-control" placeholder="Full Name" required />
-            <div class="invalid-feedback">Please enter your full name.</div>
+    <div class="card glass rounded-2xl p-6 hidden scale-hover" id="signupCard">
+      <h2 class="text-2xl font-semibold text-center text-white mb-6">
+        Sign Up
+      </h2>
+      <form id="signupForm" novalidate class="space-y-4">
+        <div class="relative">
+          <div class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">
+            <i class="fa-solid fa-user"></i>
           </div>
-          <div class="mb-3">
-            <input type="email" id="email" class="form-control" placeholder="Email Address" required />
-            <div class="invalid-feedback">Please enter a valid email address.</div>
+          <input
+            type="text"
+            id="name"
+            class="form-control w-full pl-10 pr-4 py-2 rounded-lg bg-white/90 text-gray-800 focus:ring-2 focus:ring-blue-500"
+            placeholder="Full Name"
+            required
+          />
+          <div class="invalid-feedback text-red-400 text-sm mt-1 hidden">
+            Please enter your full name.
           </div>
-          <div class="mb-3 position-relative">
-            <input type="password" id="password" class="form-control" placeholder="Password" required minlength="6" />
-            <span class="password-toggle" onclick="togglePassword('password')">👁</span>
-            <div class="invalid-feedback">Password must be at least 6 characters.</div>
-          </div>
-          <div class="mb-3">
-            <input type="text" id="department" class="form-control" placeholder="Department" required />
-            <div class="invalid-feedback">Please enter your department.</div>
-          </div>
-          <div class="mb-3">
-            <input type="text" id="division" class="form-control" placeholder="Division" required />
-            <div class="invalid-feedback">Please enter your division.</div>
-          </div>
-          <button type="submit" class="btn btn-success w-100">Sign Up</button>
-        </form>
-        <div id="signupSuccess" class="alert alert-success mt-3 d-none" role="alert">
-          🎉 Signup successful! Please log in.
         </div>
-        <div id="signupError" class="alert alert-danger mt-3 d-none" role="alert"></div>
-        <p class="text-center mt-3">
-          Already have an account? <span class="switch-link" onclick="showLogin()">Log In</span>
-        </p>
+        <div class="relative">
+          <div class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">
+            <i class="fa-solid fa-envelope"></i>
+          </div>
+          <input
+            type="email"
+            id="email"
+            class="form-control w-full pl-10 pr-4 py-2 rounded-lg bg-white/90 text-gray-800 focus:ring-2 focus:ring-blue-500"
+            placeholder="Email Address"
+            required
+          />
+          <div class="invalid-feedback text-red-400 text-sm mt-1 hidden">
+            Please enter a valid email address.
+          </div>
+        </div>
+        <div class="relative">
+          <div class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">
+            <i class="fa-solid fa-lock"></i>
+          </div>
+          <input
+            type="password"
+            id="password"
+            class="form-control w-full pl-10 pr-10 py-2 rounded-lg bg-white/90 text-gray-800 focus:ring-2 focus:ring-blue-500"
+            placeholder="Password"
+            required
+            minlength="6"
+          />
+          <span
+            class="password-toggle"
+            onclick="togglePassword('password')"
+          >
+            <i class="fa-solid fa-eye"></i>
+          </span>
+          <div class="invalid-feedback text-red-400 text-sm mt-1 hidden">
+            Password must be at least 6 characters.
+          </div>
+        </div>
+        <div class="relative">
+          <div class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">
+            <i class="fa-solid fa-building"></i>
+          </div>
+          <input
+            type="text"
+            id="department"
+            class="form-control w-full pl-10 pr-4 py-2 rounded-lg bg-white/90 text-gray-800 focus:ring-2 focus:ring-blue-500"
+            placeholder="Department"
+            required
+          />
+          <div class="invalid-feedback text-red-400 text-sm mt-1 hidden">
+            Please enter your department.
+          </div>
+        </div>
+        <div class="relative">
+          <div class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">
+            <i class="fa-solid fa-sitemap"></i>
+          </div>
+          <input
+            type="text"
+            id="division"
+            class="form-control w-full pl-10 pr-4 py-2 rounded-lg bg-white/90 text-gray-800 focus:ring-2 focus:ring-blue-500"
+            placeholder="Division"
+            required
+          />
+          <div class="invalid-feedback text-red-400 text-sm mt-1 hidden">
+            Please enter your division.
+          </div>
+        </div>
+        <button
+          type="submit"
+          class="btn bg-gradient-to-r from-green-600 to-green-700 text-white w-full py-3 rounded-lg hover:from-green-700 hover:to-green-800 transition-all font-semibold"
+        >
+          Sign Up
+        </button>
+      </form>
+      <div
+        id="signupSuccess"
+        class="alert bg-green-500/80 text-white p-4 rounded-lg mt-4 hidden fade-in"
+      >
+        🎉 Signup successful! Please log in.
       </div>
+      <div
+        id="signupError"
+        class="alert bg-red-500/80 text-white p-4 rounded-lg mt-4 hidden fade-in"
+      ></div>
+      <p class="text-center mt-4 text-gray-300">
+        Already have an account?
+        <span
+          class="cursor-pointer text-blue-400 hover:text-blue-500 underline"
+          onclick="showLogin()"
+        >
+          Log In
+        </span>
+      </p>
     </div>
   </div>
 
@@ -195,40 +298,60 @@
 
     // Form Switch Functions
     window.showSignup = () => {
-      document.getElementById('loginCard').classList.replace('visible', 'hidden');
-      document.getElementById('signupCard').classList.replace('hidden', 'visible');
+      document.getElementById('loginCard').classList.add('hidden');
+      document.getElementById('signupCard').classList.remove('hidden');
+      document.getElementById('loginCard').classList.remove('fade-in');
+      document.getElementById('signupCard').classList.add('fade-in');
     };
 
     window.showLogin = () => {
-      document.getElementById('signupCard').classList.replace('visible', 'hidden');
-      document.getElementById('loginCard').classList.replace('hidden', 'visible');
+      document.getElementById('signupCard').classList.add('hidden');
+      document.getElementById('loginCard').classList.remove('hidden');
+      document.getElementById('signupCard').classList.remove('fade-in');
+      document.getElementById('loginCard').classList.add('fade-in');
     };
 
     // Utility Functions
     const toggleButtonLoading = (button, isLoading) => {
       button.disabled = isLoading;
       button.classList.toggle('btn-loading', isLoading);
-      button.textContent = isLoading ? '' : button.dataset.originalText;
+      button.textContent = isLoading ? '' : button.dataset.originalText || button.textContent;
     };
 
     window.togglePassword = (id) => {
       const input = document.getElementById(id);
+      const icon = input.nextElementSibling.querySelector('i');
       const isPassword = input.type === 'password';
       input.type = isPassword ? 'text' : 'password';
-      input.nextElementSibling.textContent = isPassword ? '🙈' : '👁️';
+      icon.className = isPassword ? 'fa-solid fa-eye-slash' : 'fa-solid fa-eye';
     };
 
     const showAlert = (elementId, message, isSuccess) => {
       const alert = document.getElementById(elementId);
       alert.textContent = message;
-      alert.classList.remove('d-none', 'alert-success', 'alert-danger');
-      alert.classList.add(isSuccess ? 'alert-success' : 'alert-danger');
-      setTimeout(() => alert.classList.add('d-none'), 5000);
+      alert.classList.remove('hidden');
+      alert.classList.toggle('bg-green-500/80', isSuccess);
+      alert.classList.toggle('bg-red-500/80', !isSuccess);
+      setTimeout(() => alert.classList.add('hidden'), 5000);
     };
 
     const validateForm = (form) => {
-      form.classList.add('was-validated');
-      return form.checkValidity();
+      let valid = true;
+      form.querySelectorAll('input[required]').forEach(input => {
+        if (!input.value.trim()) {
+          input.nextElementSibling.classList.remove('hidden');
+          valid = false;
+        } else if (input.type === 'email' && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(input.value)) {
+          input.nextElementSibling.classList.remove('hidden');
+          valid = false;
+        } else if (input.id === 'password' && input.value.length < 6) {
+          input.nextElementSibling.classList.remove('hidden');
+          valid = false;
+        } else {
+          input.nextElementSibling.classList.add('hidden');
+        }
+      });
+      return valid;
     };
 
     // Signup Handler
@@ -259,7 +382,6 @@
         });
         showAlert('signupSuccess', '🎉 Signup successful! Please log in.', true);
         form.reset();
-        form.classList.remove('was-validated');
         setTimeout(showLogin, 2000); // Switch to login after success
       } catch (error) {
         showAlert('signupError', `Signup failed: ${error.message}`, false);
